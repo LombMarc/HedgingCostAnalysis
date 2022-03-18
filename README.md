@@ -3,13 +3,12 @@ Analysis of the hedging cost and the mismatching error of a claim priced through
 
 
 Algorithm:
-    produce trajectory of the security S  using Heston_evolution script;
-    for every time step and every particles (sample element) compute the theoretical (analytical) price of the option through Heston_opt
-    for every time step and every particles of the option trajectory (or cuncurrently with its computation) find implied volatility though euro_opt
-    given the implied volatility compute the new weight for the trading period and from this the hedging cost.
-
-    At terminal time, sum along time axis the costs in order to obtain an array of particles of total cost, which will be subject of distribution analysis
-    At terminal time, compute the value of the hedging portfolio (computed as sum of weight time value of the assets) and compute the mismatch between portfolio and claim,  analyse distribution of mismatch
+   1) produce trajectory of the security S  using Heston_evolution script;
+   2) for every time step and every particles (sample element) compute the theoretical (analytical) price of the option through Heston_opt
+   3) for every time step and every particles of the option trajectory (or cuncurrently with its computation) find implied volatility though euro_opt
+   4) given the implied volatility compute the new weight for the trading period and from this the hedging cost.
+   5) At terminal time, sum along time axis the costs in order to obtain an array of particles of total cost, which will be subject of distribution analysis
+   6) At terminal time, compute the value of the hedging portfolio (computed as sum of weight time value of the assets) and compute the mismatch between portfolio and claim,  analyse distribution of mismatch
 
 assumpiton:
     costant interest rate along time
