@@ -1,0 +1,47 @@
+
+import numpy as np
+import numpy.random
+import scipy as sp
+import matplotlib.pyplot as plt
+from Lib.CIR import CIR,cir_evol
+from Lib.heston_evol import mc_heston
+from lecture_09.heston_opt import run
+
+rand = numpy.random.RandomState(313031)
+
+def VOL(theta,kappa,sigma,initial_vol,N,J,Dt):
+    feller = sigma*sigma/(2*kappa*theta)
+    #print("Feller condition value is %f" %feller)
+    cir = CIR(kappa=kappa,sigma=sigma,theta=theta,ro=initial_vol)
+    evol, integr = cir_evol(rand,cir,N,Dt,N,Dt,J)
+    return evol,integr,cir
+    
+def Underlying_trajectory(theta,kappa,sigma,initial_vol,So,rho,N,J,Dt,martingality:bool):   
+    evol,intgr, cir = VOL(theta,kappa,sigma,initial_vol,N,J,Dt)
+    evol = evol.transpose()
+    intgr = intgr.transpose()
+    S_trj = np.ndarray(shape=(J,N+1,J) )
+    if martingality==True:
+        for i in range(J):
+            s = mc_heston(rand,So,evol[i],intgr[i],cir,rho,Dt,J)
+            es = np.add.reduce(s,1)/J
+            if i == 0:
+                E = es/J
+                V = es*es/J
+            else:
+                E = E+ es/J
+                V = V + es*es/J
+            S_trj[i]= s
+        t = np.arange(0,N+1,1)*Dt
+
+        err = 2* np.sqrt((V-E*E)/J)
+        plt.errorbar(t, E, yerr=err, fmt='x', color='g')
+        plt.plot(t, np.full(shape=N+1, fill_value=So, dtype=np.double), color='r')
+        plt.ylim(top=1.1, bottom=.9)
+        plt.show()
+        return S_trj
+    else:
+        for i in range(J):
+            s = mc_heston(rand,So,evol[i],intgr[i],cir,rho,Dt,J)
+            S_trj[i]= s
+        return S_trj
