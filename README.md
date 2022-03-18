@@ -19,17 +19,17 @@ report and test:
     feller condition value for cir volatility
 
 parameter to use:
-    * T <- 1
-    *N <- 12 #monthly ==> Dt = 1/12
-    J <- 2^10=1024
-    theta <- .024
-    kappa <- .1153
-    sigma <- .01
-    initial_volatility <- .0635
-    initial_price <- 10
-    rho <- .2125
-    interest_rate <- .015
-    strike <- .97
+    T <- 1 <br>
+    N <- 12 #monthly ==> Dt = 1/12 <br>
+    J <- 2^10=1024 <br>
+    theta <- .024 <br>
+    kappa <- .1153 <br>
+    sigma <- .01 <br>
+    initial_volatility <- .0635 <br>
+    initial_price <- 10 <br>
+    rho <- .2125 <br>
+    interest_rate <- .015 <br>
+    strike <- .97 <br>
 
 # Code structure
 
