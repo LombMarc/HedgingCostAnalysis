@@ -19,8 +19,8 @@ report and test:
     feller condition value for cir volatility
 
 parameter to use:
-    T <- 1
-    N <- 12 #monthly ==> Dt = 1/12
+    * T <- 1
+    *N <- 12 #monthly ==> Dt = 1/12
     J <- 2^10=1024
     theta <- .024
     kappa <- .1153
